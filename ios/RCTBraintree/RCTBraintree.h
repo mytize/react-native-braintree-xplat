@@ -6,7 +6,7 @@
 //  Copyright © 2016 Rickard Ekman. All rights reserved.
 //
 
-#import <React/RCTBridgeModule.h>
+#import "RCTBridgeModule.h"
 #import "BraintreeCore.h"
 #import "BraintreePayPal.h"
 #import "BraintreeCard.h"
