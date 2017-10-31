@@ -7,6 +7,9 @@
 //
 
 #import "RCTBridgeModule.h"
+#import "RCTUtils.h"
+#import "RCTConvert.h"
+
 #import "BraintreeCore.h"
 #import "BraintreePayPal.h"
 #import "BraintreeCard.h"
