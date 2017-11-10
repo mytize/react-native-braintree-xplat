@@ -126,24 +126,18 @@ RCT_EXPORT_METHOD(showPayPalViewController:(RCTResponseSenderBlock)callback)
     });
 }
 
-//Using this getCardNonce for Accomplice APP.
 RCT_EXPORT_METHOD(getCardNonce: (NSString *)cardNumber
+                  expirationMonth: (NSString *)expirationMonth
+                  expirationYear: (NSString *)expirationYear
                   cvv: (NSString *)cvv
-                  postalCode: (NSString *)postalCode
-                  expDate: (NSString *)expDate
                   callback: (RCTResponseSenderBlock)callback
                   )
 {
     BTCardClient *cardClient = [[BTCardClient alloc] initWithAPIClient: self.braintreeClient];
-    NSDictionary *postalCodeDict = [[NSDictionary alloc]initWithObjectsAndKeys:postalCode,@"postal_code",nil];
-    NSDictionary * details = [[NSDictionary alloc]initWithObjectsAndKeys:cardNumber,@"number",expDate,@"expiration_date",cvv,@"cvv",postalCodeDict,@"billing_address", nil];
-    NSLog(@"%@",details);
-    BTCard * cardData = [[BTCard alloc]initWithParameters:details];
+    BTCard *card = [[BTCard alloc] initWithNumber:cardNumber expirationMonth:expirationMonth expirationYear:expirationYear cvv:cvv];
+    card.shouldValidate = YES;
 
-
-    cardData.shouldValidate = YES;
-
-    [cardClient tokenizeCard:cardData
+    [cardClient tokenizeCard:card
                   completion:^(BTCardNonce *tokenizedCard, NSError *error) {
 
                       NSArray *args = @[];
